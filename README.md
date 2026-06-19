@@ -1,51 +1,96 @@
-# 📝 Aplicación de Notas con Express.js
+# Notes App
 
-## Descripción
-Breve descripción del proyecto.
+Aplicación web sencilla de notas con Node.js, Express, MongoDB (Mongoose), JWT en cookies y EJS. Arquitectura MVC.
 
-Ejemplo:
-Aplicación web desarrollada con Express.js que permite crear, editar, eliminar y visualizar notas de manera sencilla. Utiliza Node.js como entorno de ejecución y sigue una arquitectura MVC para la organización del código.
+## Funcionalidades
 
----
+- Signup (registro con contraseña encriptada con bcrypt)
+- Login (genera JWT guardado en cookie httpOnly)
+- Logout (limpia la cookie)
+- Crear nota (título + contenido, asociada al usuario)
+- Ver notas (solo las propias del usuario autenticado)
 
-## Características
+## Estructura del proyecto
 
-- Crear notas.
-- Editar notas existentes.
-- Eliminar notas.
-- Listar todas las notas.
-- Validación de formularios.
-- Interfaz web responsiva.
-- Persistencia de datos.
+```
+notes-app/
+├── config/
+│   └── db.js                 # Conexión a MongoDB
+├── controllers/
+│   ├── authController.js     # Lógica signup/login/logout
+│   └── noteController.js     # Lógica de notas
+├── middleware/
+│   └── authMiddleware.js      # protect / redirectIfAuthenticated
+├── models/
+│   ├── User.js
+│   └── Note.js
+├── routes/
+│   ├── authRoutes.js
+│   └── noteRoutes.js
+├── views/
+│   ├── partials/
+│   │   ├── head.ejs
+│   │   └── navbar.ejs
+│   ├── login.ejs
+│   ├── signup.ejs
+│   ├── notes.ejs
+│   └── newNote.ejs
+├── public/
+│   └── css/style.css
+├── server.js
+├── package.json
+├── Dockerfile
+├── docker-compose.yml
+└── .env.example
+```
 
----
+## Cómo ejecutar con Docker (recomendado)
 
-## Tecnologías Utilizadas
-
-- Node.js
-- Express.js
-- HTML5
-- CSS3
-- JavaScript
-- MongoDB / MySQL (según corresponda)
-- EJS / Handlebars (si utilizas motor de plantillas)
-
----
-
-## Requisitos Previos
-
-Antes de ejecutar el proyecto debes tener instalado:
-
-- Node.js
-- npm
-- Base de datos (si aplica)
-- Git
-
----
-
-## Instalación
-
-### 1. Clonar el repositorio
+1. Clona/copia el proyecto.
+2. Desde la raíz del proyecto, ejecuta:
 
 ```bash
-git clone https://github.com/usuario/notas-express.git
+docker-compose up --build
+```
+
+3. Abre tu navegador en: http://localhost:3000
+
+Esto levanta dos contenedores:
+- `app`: la aplicación Node.js/Express en el puerto 3000.
+- `mongo`: MongoDB en el puerto 27017, con un volumen persistente (`mongo-data`).
+
+Para detener todo:
+
+```bash
+docker-compose down
+```
+
+Para borrar también los datos de Mongo:
+
+```bash
+docker-compose down -v
+```
+
+## Cómo ejecutar en local sin Docker
+
+1. Asegúrate de tener MongoDB corriendo localmente (o cambia `MONGO_URI`).
+2. Copia `.env.example` a `.env` y ajusta las variables si lo necesitas.
+3. Instala dependencias:
+
+```bash
+npm install
+```
+
+4. Levanta el servidor:
+
+```bash
+npm start
+```
+
+5. Abre http://localhost:3000
+
+## Notas de seguridad / producción
+
+- El JWT se guarda en una cookie `httpOnly` (no accesible desde JS del navegador).
+- En producción, activa `secure: true` en la cookie (requiere HTTPS) dentro de `controllers/authController.js`.
+- Cambia `JWT_SECRET` por un valor largo y aleatorio antes de desplegar.

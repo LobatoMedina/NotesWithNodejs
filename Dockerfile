@@ -1,9 +1,13 @@
-FROM node:22-alpine
-WORKDIR app
-COPY package*.json ./
-COPY server.js ./
+FROM node:20-alpine
 
-RUN npm install
+WORKDIR /usr/src/app
+
+# Copiar archivos de dependencias e instalar
+COPY package*.json ./
+RUN npm install --production
+
+# Copiar el resto del código
+COPY . .
 
 EXPOSE 3000
 

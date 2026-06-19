@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('partials/head') %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Mis notas</h2>
+      <a href="/notes/new" class="btn btn-primary">+ Nueva nota</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <% if (notes.length === 0) { %>
+      <div class="alert alert-info">
+        Todavía no tienes notas. ¡Crea la primera!
+      </div>
+    <% } else { %>
+      <div class="row">
+        <% notes.forEach(note => { %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title"><%= note.title %></h5>
+                <p class="card-text"><%= note.content %></p>
+              </div>
+              <div class="card-footer text-muted small">
+                <%= new Date(note.createdAt).toLocaleString('es-ES') %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

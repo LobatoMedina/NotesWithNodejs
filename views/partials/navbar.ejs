@@ -1,0 +1,11 @@
+<nav class="navbar navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/notes">📝 Notes App</a>
+    <% if (typeof user !== 'undefined' && user) { %>
+      <div class="d-flex align-items-center">
+        <span class="text-light me-3">Hola, <%= user.username %></span>
+        <a href="/logout" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
+      </div>
+    <% } %>
+  </div>
+</nav>

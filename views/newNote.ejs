@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('partials/head') %>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <h2 class="mb-4">Crear nueva nota</h2>
+
+        <% if (error) { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/notes" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" name="title" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Contenido</label>
+            <textarea name="content" rows="6" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar nota</button>
+          <a href="/notes" class="btn btn-secondary">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
