@@ -1,0 +1,25 @@
+{
+  "name": "noteswithnodejs",
+  "version": "1.0.0",
+  "description": "Los Javieres",
+  "keywords": [
+    "node",
+    "scss",
+    "tailwind"
+  ],
+  "homepage": "https://github.com/LobatoMedina/NotesWithNodejs#readme",
+  "bugs": {
+    "url": "https://github.com/LobatoMedina/NotesWithNodejs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/LobatoMedina/NotesWithNodejs.git"
+  },
+  "license": "ISC",
+  "author": "Lobato Medina Luis",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
